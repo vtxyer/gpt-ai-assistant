@@ -35,15 +35,20 @@ const createCompletion = ({
     ` ${PARTICIPANT_AI}:`,
     ` ${PARTICIPANT_HUMAN}:`,
   ],
-}) => instance.post('/v1/completions', {
-  model,
-  prompt,
-  temperature,
-  max_tokens: maxTokens,
-  frequency_penalty: frequencyPenalty,
-  presence_penalty: presencePenalty,
-  stop,
-});
+}) => {
+  let data = instance.post('/v1/completions', {
+    model,
+    prompt,
+    temperature,
+    max_tokens: maxTokens,
+    frequency_penalty: frequencyPenalty,
+    presence_penalty: presencePenalty,
+    stop,
+  });
+  
+  data.choices[0].text = data.choices[0].text.replace('<|im_end|>', '');
+  return data;
+}
 
 const createImage = ({
   prompt,
