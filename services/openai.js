@@ -35,8 +35,7 @@ const createCompletion = ({
     ` ${PARTICIPANT_AI}:`,
     ` ${PARTICIPANT_HUMAN}:`,
   ],
-}) => {
-  let data = instance.post('/v1/completions', {
+}) => instance.post('/v1/completions', {
     model,
     prompt,
     temperature,
@@ -45,13 +44,6 @@ const createCompletion = ({
     presence_penalty: presencePenalty,
     stop,
   });
-  
-  if (data.choices?.[0]?.text) {
-    data.choices?.[0]?.text = data.choices[0].text.replace('<|im_end|>', '');
-  }
-   
-  return data;
-}
 
 const createImage = ({
   prompt,
