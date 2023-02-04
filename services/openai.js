@@ -46,7 +46,10 @@ const createCompletion = ({
     stop,
   });
   
-  data.choices[0].text = data.choices[0].text.replace('<|im_end|>', '');
+  if (data.choices?.[0]?.text) {
+    data.choices?.[0]?.text = data.choices[0].text.replace('<|im_end|>', '');
+  }
+   
   return data;
 }
 
